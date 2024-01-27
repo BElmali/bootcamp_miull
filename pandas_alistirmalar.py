@@ -79,10 +79,29 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 df = sns.load_dataset("tips")
 df.head()
-
+df.info()
 
 #Görev18:  Time değişkeninin kategorilerine(Dinner, Lunch) göre total_bill değerlerinin toplamını, min, max ve ortalamasını bulunuz.
 df.groupby("time")["total_bill"].agg(['min', 'max', 'mean'])
 
 #Görev19:  Günlere ve time göre total_bill değerlerinin toplamını, min, max veortalamasını bulunuz
 df.groupby(['day', 'time'])['total_bill'].agg(['sum', 'min', 'max', 'mean'])
+
+#Görev 20:  Lunch zamanına ve kadın müşterilere ait total_bill ve tip  değerlerinin daye göre toplamını, min, max veortalamasınıbulunuz.
+df.groupby([df["day"],df['time'] == 'Lunch',df['sex'] == 'Female']).agg({'total_bill': ['sum', 'min', 'max', 'mean'],
+                                                                              'tip': ['sum', 'min', 'max', 'mean']})
+
+#Görev 21: size'i 3'ten  küçük, total_bill'i 10'dan büyük olan siparişlerin ortalaması nedir? (loc kullanınız)
+df.loc[(df['size']< 3) & (df['total_bill']>10)]
+
+
+#Görev22:  total_bill_tip_sum adında yeni birdeğişken oluşturunuz. Her birmüşterinin ödediği totalbill ve tip in toplamını versin.
+
+df["total_bill_tip_sum"]=df['total_bill'] + df['tip']
+
+
+#Görev23:  total_bill_tip_sum değişkenine göre büyükten küçüğe sıralayınız ve ilk 30 kişiyiyeni birdataframe'eatayınız.
+df_sorted = df.sort_values(by='total_bill_tip_sum', ascending=False)
+
+# İlk 30 kişiyi içeren yeni bir DataFrame oluştur
+top_30 = df_sorted.head(30)
