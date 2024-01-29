@@ -92,7 +92,7 @@ df.groupby([df["day"],df['time'] == 'Lunch',df['sex'] == 'Female']).agg({'total_
                                                                               'tip': ['sum', 'min', 'max', 'mean']})
 
 #Görev 21: size'i 3'ten  küçük, total_bill'i 10'dan büyük olan siparişlerin ortalaması nedir? (loc kullanınız)
-df.loc[(df['size']< 3) & (df['total_bill']>10)]
+df.loc[(df['size']< 3) & (df['total_bill']>10),"total_bill"].mean()
 
 
 #Görev22:  total_bill_tip_sum adında yeni birdeğişken oluşturunuz. Her birmüşterinin ödediği totalbill ve tip in toplamını versin.
